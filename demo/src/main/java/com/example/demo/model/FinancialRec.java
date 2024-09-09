@@ -23,20 +23,20 @@ public class FinancialRec {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long payroll;
 
-    @Column(name ="cash")
-    private BigDecimal cash;
+    @Column(name = "period")
+    private String period;
 
     @Column(name = "date")
     private Date date;
 
-    @Column(name ="saving")
-    private BigDecimal saving;
+    @Column(name ="cash")
+    private BigDecimal cash;
+
+    @Column(name ="savings")
+    private BigDecimal savings;
 
     @Column(name ="extra")
     private BigDecimal extra;
-
-    @Column(name = "period")
-    private String period;
 
     @Column(name = "expenses")
     private BigDecimal expenses;

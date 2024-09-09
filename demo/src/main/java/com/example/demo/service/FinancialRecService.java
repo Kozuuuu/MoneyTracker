@@ -38,21 +38,21 @@ public class FinancialRecService {
             FinancialRec record = existingRecord.get();
             record.setCash(updatedRecord.getCash());
             record.setDate(updatedRecord.getDate());
-            record.setSaving(updatedRecord.getSaving());
+            record.setSavings(updatedRecord.getSavings());
             record.setExtra(updatedRecord.getExtra());
             record.setPeriod(updatedRecord.getPeriod());
             return financialRecRepo.save(record);
         }
         return null;
     }
-    
+
     public FinancialRec addRecord(FinancialRec financialRec) {
         LocalDate today = LocalDate.now();
         LocalDate nextPayrollDate = calculateNextPayrollDate(today);
         long daysUntilNextPayroll = ChronoUnit.DAYS.between(today, nextPayrollDate);
 
         BigDecimal expenses = BigDecimal.valueOf(daysUntilNextPayroll * 150).add(BigDecimal.valueOf(500));
-        BigDecimal extra = financialRec.getCash().subtract(expenses).subtract(financialRec.getSaving());
+        BigDecimal extra = financialRec.getCash().subtract(expenses).subtract(financialRec.getSavings());
 
         financialRec.setDate(Date.valueOf(today));
         financialRec.setNextPayrollDate(Date.valueOf(nextPayrollDate));
