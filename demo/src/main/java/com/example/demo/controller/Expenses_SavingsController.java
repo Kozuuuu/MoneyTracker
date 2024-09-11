@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.SavingsResponse;
+import com.example.demo.model.Expenses_Savings;
 import com.example.demo.service.Expenses_SavingsService;
 
 @RestController
@@ -17,8 +19,13 @@ public class Expenses_SavingsController {
     @Autowired
     private Expenses_SavingsService expenses_SavingsService;
 
+    @GetMapping("/alldetails")  
+    public List<Expenses_Savings> getAllDetails() {
+        return expenses_SavingsService.getAllDetails(); 
+    }
+  
     @GetMapping("/savings")
-    public List<BigDecimal> getSavings() {
+    public List<SavingsResponse> getAllSavings() {
         return expenses_SavingsService.getSavings();
     }
 

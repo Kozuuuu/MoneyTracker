@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.CalculationResponse;
+import com.example.demo.dto.CalculationResponse;
 import com.example.demo.model.Calculator;
 
 @Service
