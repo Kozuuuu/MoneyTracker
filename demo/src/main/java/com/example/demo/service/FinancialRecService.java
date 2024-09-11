@@ -73,6 +73,7 @@ public class FinancialRecService {
         LocalDate nextPayrollDate = calculateNextPayrollDate(today);
         long daysUntilNextPayroll = ChronoUnit.DAYS.between(today, nextPayrollDate);
 
+        
         // Fetch default values if needed
         Expenses_Savings defaultValues = expenses_SavingsRepo.findTopByOrderByIdDesc()
             .orElseThrow(() -> new RuntimeException("No expenses_savings record found"));

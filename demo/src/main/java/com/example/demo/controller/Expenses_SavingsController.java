@@ -44,7 +44,6 @@ public class Expenses_SavingsController {
         if (updatedRecord != null) {
             return ResponseEntity.ok(updatedRecord);
         } else {
-            // Return 404 Not Found if the record does not exist
             return ResponseEntity.notFound().build();
         }
     }

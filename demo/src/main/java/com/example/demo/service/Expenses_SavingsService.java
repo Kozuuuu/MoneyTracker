@@ -15,7 +15,7 @@ import com.example.demo.repo.Expenses_SavingsRepo;
 @Service
 public class Expenses_SavingsService {
 
-    @Autowired 
+    @Autowired
     private Expenses_SavingsRepo expenses_SavingsRepo;
 
     public List<Expenses_Savings> getAllDetails() {
@@ -31,7 +31,6 @@ public class Expenses_SavingsService {
                 .toList();
     }
 
-
     public Expenses_Savings updateExpenses_Savings(Expenses_Savings expSave) {
         Optional<Expenses_Savings> existingRecord = expenses_SavingsRepo.findTopByOrderByIdDesc();
 
@@ -43,7 +42,7 @@ public class Expenses_SavingsService {
             record.setSavingsDescription(expSave.getSavingsDescription());
             record.setMonthlyPayments(expSave.getMonthlyPayments());
 
-            return expenses_SavingsRepo.save(record);   
+            return expenses_SavingsRepo.save(record);
         }
         return null;
     }
