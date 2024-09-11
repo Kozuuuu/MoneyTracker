@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,8 @@ import com.example.demo.repo.Expenses_SavingsRepo;
 @Service
 public class Expenses_SavingsService {
 
-    @Autowired Expenses_SavingsRepo expenses_SavingsRepo;
+    @Autowired 
+    private Expenses_SavingsRepo expenses_SavingsRepo;
 
     public List<Expenses_Savings> getAllDetails() {
         return expenses_SavingsRepo.findAll();
@@ -29,10 +31,21 @@ public class Expenses_SavingsService {
                 .toList();
     }
 
-    public List<BigDecimal> postSavings() {
-        return savingsRepo.findAll().stream()
-                .map(Expenses_Savings::getSavings)
-                .toList();
+
+    public Expenses_Savings updateExpenses_Savings(Expenses_Savings expSave) {
+        Optional<Expenses_Savings> existingRecord = expenses_SavingsRepo.findTopByOrderByIdDesc();
+
+        if (existingRecord.isPresent()) {
+            Expenses_Savings record = existingRecord.get();
+            record.setExpenses(expSave.getExpenses());
+            record.setExpensesDescription(expSave.getExpensesDescription());
+            record.setSavings(expSave.getSavings());
+            record.setSavingsDescription(expSave.getSavingsDescription());
+            record.setMonthlyPayments(expSave.getMonthlyPayments());
+
+            return expenses_SavingsRepo.save(record);   
+        }
+        return null;
     }
 
     @Autowired
@@ -42,23 +55,5 @@ public class Expenses_SavingsService {
         return savingsRepo.findAll().stream()
                 .map(exp -> new SavingsResponse(exp.getSavings(), exp.getSavingsDescription()))
                 .collect(Collectors.toList());
-            
     }
-
-
-    // public void updateExpenses(BigDecimal expenses, String expenses_description) {
-    //     expenses_savingsRepo.updateExpensesDetails(expenses, expenses_description);
-    // }
-
-    // public List<Object[]> getExpensesDetails() {
-    //     return expenses_savingsRepo.getExpensesDetails();
-    // }
-
-    // public void updateSavings(BigDecimal savings, String savings_description) {
-    //     expenses_savingsRepo.updateSavingsDetails(savings, savings_description);
-    // }
-
-    // public List<Object[]> getSavingsDetails() {
-    //     return expenses_savingsRepo.getSavingsDetails();
-    // }
 }

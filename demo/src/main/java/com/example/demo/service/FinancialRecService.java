@@ -11,7 +11,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.model.Expenses_Savings;
 import com.example.demo.model.FinancialRec;
+import com.example.demo.repo.Expenses_SavingsRepo;
 import com.example.demo.repo.FinancialRecRepo;
 
 @Service
@@ -19,6 +21,9 @@ public class FinancialRecService {
 
     @Autowired
     private FinancialRecRepo financialRecRepo;
+
+    @Autowired
+    private Expenses_SavingsRepo expenses_SavingsRepo;
 
     public List<FinancialRec> getAllRecords() {
         return financialRecRepo.findAll();
@@ -46,23 +51,52 @@ public class FinancialRecService {
         return null;
     }
 
+    // public FinancialRec addRecord(FinancialRec financialRec) {
+    //     LocalDate today = LocalDate.now();
+    //     LocalDate nextPayrollDate = calculateNextPayrollDate(today);
+    //     long daysUntilNextPayroll = ChronoUnit.DAYS.between(today, nextPayrollDate);
+
+    //     BigDecimal expenses = BigDecimal.valueOf(daysUntilNextPayroll * 150).add(BigDecimal.valueOf(500));
+    //     BigDecimal extra = financialRec.getCash().subtract(expenses).subtract(financialRec.getSavings());
+
+    //     financialRec.setDate(Date.valueOf(today));
+    //     financialRec.setNextPayrollDate(Date.valueOf(nextPayrollDate));
+    //     financialRec.setDaysUntilNextPayroll((int) daysUntilNextPayroll);
+    //     financialRec.setExpenses(expenses);
+    //     financialRec.setExtra(extra);
+
+    //     return financialRecRepo.save(financialRec);
+    // }
+
     public FinancialRec addRecord(FinancialRec financialRec) {
         LocalDate today = LocalDate.now();
         LocalDate nextPayrollDate = calculateNextPayrollDate(today);
         long daysUntilNextPayroll = ChronoUnit.DAYS.between(today, nextPayrollDate);
 
-        BigDecimal expenses = BigDecimal.valueOf(daysUntilNextPayroll * 150).add(BigDecimal.valueOf(500));
-        BigDecimal extra = financialRec.getCash().subtract(expenses).subtract(financialRec.getSavings());
+        // Fetch default values if needed
+        Expenses_Savings defaultValues = expenses_SavingsRepo.findTopByOrderByIdDesc()
+            .orElseThrow(() -> new RuntimeException("No expenses_savings record found"));
+
+        BigDecimal expenses = financialRec.getExpenses() != null ?
+            financialRec.getExpenses() :
+            BigDecimal.valueOf(daysUntilNextPayroll * 150).add(BigDecimal.valueOf(500));
+        
+        BigDecimal savings = financialRec.getSavings() != null ?
+            financialRec.getSavings() :
+            defaultValues.getSavings();
+
+        BigDecimal extra = financialRec.getCash().subtract(expenses).subtract(savings);
 
         financialRec.setDate(Date.valueOf(today));
         financialRec.setNextPayrollDate(Date.valueOf(nextPayrollDate));
         financialRec.setDaysUntilNextPayroll((int) daysUntilNextPayroll);
         financialRec.setExpenses(expenses);
+        financialRec.setSavings(savings);
         financialRec.setExtra(extra);
 
         return financialRecRepo.save(financialRec);
     }
-
+    
     private LocalDate calculateNextPayrollDate(LocalDate today) {
         LocalDate nextPayrollDate = today.withDayOfMonth(15);
         if (today.getDayOfMonth() > 15) {

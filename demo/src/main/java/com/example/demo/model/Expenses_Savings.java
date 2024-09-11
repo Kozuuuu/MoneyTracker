@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class Expenses_Savings {
 
     @Id
-    private Long no;
+    private Integer Id;
     
     @Column(name = "expenses")
     private BigDecimal expenses;

@@ -1,5 +1,7 @@
 package com.example.demo.repo;
 
+import java.util.Optional;
+
 // import java.math.BigDecimal;
 // import java.util.List;
 
@@ -13,6 +15,8 @@ import com.example.demo.model.Expenses_Savings;
 // import jakarta.transaction.Transactional;
 
 public interface Expenses_SavingsRepo extends JpaRepository <Expenses_Savings,  Long> {
+    
+    Optional<Expenses_Savings> findTopByOrderByIdDesc();
     
     // @Modifying
     // @Transactional
