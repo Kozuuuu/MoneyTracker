@@ -62,6 +62,7 @@ public class FinancialRecService {
 
         return financialRecRepo.save(financialRec);
     }
+    
     //     @PostMapping
     // public ResponseEntity<FinancialRec> addRecord(@RequestBody FinancialRec financialRec) {
     //     FinancialRec createdRecord = financialRecService.addRecord(financialRec);
