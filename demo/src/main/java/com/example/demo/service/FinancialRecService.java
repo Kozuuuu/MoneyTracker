@@ -62,6 +62,11 @@ public class FinancialRecService {
 
         return financialRecRepo.save(financialRec);
     }
+    //     @PostMapping
+    // public ResponseEntity<FinancialRec> addRecord(@RequestBody FinancialRec financialRec) {
+    //     FinancialRec createdRecord = financialRecService.addRecord(financialRec);
+    //     return ResponseEntity.ok(createdRecord);
+    // }
 
     private LocalDate calculateNextPayrollDate(LocalDate today) {
         LocalDate nextPayrollDate = today.withDayOfMonth(15);

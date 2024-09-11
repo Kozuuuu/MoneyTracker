@@ -28,6 +28,12 @@ public class FinancialRecController {
         return financialRecService.getAllRecords();
     }
     
+    @PostMapping
+    public ResponseEntity<FinancialRec> addRecord(@RequestBody FinancialRec financialRec) {
+        FinancialRec createdRecord = financialRecService.addRecord(financialRec);
+        return ResponseEntity.ok(createdRecord);
+    }
+    
     @GetMapping("/{payroll}")
     public ResponseEntity<FinancialRec> getRecordById(@PathVariable Long payroll) {
         return financialRecService.getRecordById(payroll)
@@ -49,11 +55,5 @@ public class FinancialRecController {
         } else {
             return ResponseEntity.notFound().build();
         }
-    }
-
-    @PostMapping
-    public ResponseEntity<FinancialRec> addRecord(@RequestBody FinancialRec financialRec) {
-        FinancialRec createdRecord = financialRecService.addRecord(financialRec);
-        return ResponseEntity.ok(createdRecord);
     }
 }

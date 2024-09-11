@@ -35,15 +35,15 @@ public class FinancialRec {
     @Column(name ="savings")
     private BigDecimal savings;
 
-    @Column(name ="extra")
-    private BigDecimal extra;
-
     @Column(name = "expenses")
     private BigDecimal expenses;
 
-    @Column(name = "next_payroll_date")
-    private Date nextPayrollDate;
+    @Column(name ="extra")
+    private BigDecimal extra;
 
     @Column(name = "days_until_next_payroll")
     private Integer daysUntilNextPayroll;
+
+    @Column(name = "next_payroll_date")
+    private Date nextPayrollDate;
 }
