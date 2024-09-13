@@ -93,7 +93,11 @@ public class FinancialRecService {
                 nextPayrollDate = fifteenthOfMonth;
             }
         } else {
+            if (hasReceivedPayrollForTheLastDay(today)) {
+                nextPayrollDate = fifteenthOfMonth;
+            } else {
             nextPayrollDate = lastDayOfMonth;
+            }
         }
     
         if (nextPayrollDate.getDayOfWeek() == DayOfWeek.SATURDAY) {
@@ -106,6 +110,10 @@ public class FinancialRecService {
     }
     
     private boolean hasReceivedPayrollFor15th(LocalDate today) {
-        return today.isBefore(today.withDayOfMonth(15));
+        return today.isBefore(today.withDayOfMonth(15)) || today.isEqual(today.withDayOfMonth(15));
+    }
+    private boolean hasReceivedPayrollForTheLastDay(LocalDate today) {
+        LocalDate lastDayOfMonth = today.withDayOfMonth(today.lengthOfMonth());
+        return today.isBefore(lastDayOfMonth) && today.isAfter(today.withDayOfMonth(15)) || today.isEqual(lastDayOfMonth);
     }
 }
