@@ -17,7 +17,7 @@ import com.example.demo.model.Expenses_Savings;
 public interface Expenses_SavingsRepo extends JpaRepository <Expenses_Savings,  Long> {
     
     Optional<Expenses_Savings> findTopByOrderByIdDesc();
-    
+
     // @Modifying
     // @Transactional
     // @Query(

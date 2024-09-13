@@ -36,12 +36,14 @@ public class Expenses_SavingsService {
 
         if (existingRecord.isPresent()) {
             Expenses_Savings record = existingRecord.get();
-            record.setExpenses(expSave.getExpenses());
-            record.setExpensesDescription(expSave.getExpensesDescription());
-            record.setSavings(expSave.getSavings());
-            record.setSavingsDescription(expSave.getSavingsDescription());
-            record.setMonthlyPayments(expSave.getMonthlyPayments());
 
+            record.setExpenses(expSave.getExpenses() != null ? expSave.getExpenses() : record.getExpenses());
+            record.setExpensesDescription(expSave.getExpensesDescription() != null ? expSave.getExpensesDescription() : record.getExpensesDescription());
+            record.setSavings(expSave.getSavings() != null ? expSave.getSavings() : record.getSavings());
+            record.setSavingsDescription(expSave.getSavingsDescription() != null ? expSave.getSavingsDescription() : record.getSavingsDescription());
+            record.setMonthlyPayments(expSave.getMonthlyPayments() != null ? expSave.getMonthlyPayments() : record.getMonthlyPayments());
+            record.setTotalSavings(expSave.getTotalSavings() != null ? expSave.getTotalSavings() : record.getTotalSavings());
+    
             return expenses_SavingsRepo.save(record);
         }
         return null;

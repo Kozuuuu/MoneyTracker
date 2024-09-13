@@ -39,7 +39,7 @@ public class Expenses_SavingsController {
 
     
     @PutMapping("/update")
-    public ResponseEntity<Expenses_Savings> updateExpensesSavings(@RequestBody Expenses_Savings expSave) {
+    public ResponseEntity<Expenses_Savings> updateExpenses_Savings(@RequestBody Expenses_Savings expSave) {
         Expenses_Savings updatedRecord = expenses_SavingsService.updateExpenses_Savings(expSave);
         if (updatedRecord != null) {
             return ResponseEntity.ok(updatedRecord);
