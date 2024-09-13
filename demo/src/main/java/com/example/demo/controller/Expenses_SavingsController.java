@@ -36,7 +36,6 @@ public class Expenses_SavingsController {
     public List<BigDecimal> getExpenses() {
         return expenses_SavingsService.getExpenses();
     }
-
     
     @PutMapping("/update")
     public ResponseEntity<Expenses_Savings> updateExpenses_Savings(@RequestBody Expenses_Savings expSave) {

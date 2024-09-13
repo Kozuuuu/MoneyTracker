@@ -9,7 +9,7 @@
             "server": "localhost",
             "port": 3306,
             "driver": "MySQL",
-            "name": "MoenyTracker",
+            "name": "MoneyTracker",
             "database": "moneytracker",
             "username": "root",
             "askForPassword": true

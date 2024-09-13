@@ -41,11 +41,13 @@ public class FinancialRecService {
         Optional<FinancialRec> existingRecord = financialRecRepo.findById(payroll);
         if (existingRecord.isPresent()) {
             FinancialRec record = existingRecord.get();
-            record.setCash(updatedRecord.getCash());
-            record.setDate(updatedRecord.getDate());
-            record.setSavings(updatedRecord.getSavings());
-            record.setExtra(updatedRecord.getExtra());
-            record.setPeriod(updatedRecord.getPeriod());
+            
+            record.setCash(updatedRecord.getCash() != null ? updatedRecord.getCash() : record.getCash());
+            record.setDate(updatedRecord.getDate() != null ? updatedRecord.getDate() : record.getDate());
+            record.setSavings(updatedRecord.getSavings() != null ? updatedRecord.getSavings() : record.getSavings());
+            record.setExtra(updatedRecord.getExtra() != null ? updatedRecord.getExtra() : record.getExtra());
+            record.setPeriod(updatedRecord.getPeriod() != null ? updatedRecord.getPeriod() : record.getPeriod());
+            
             return financialRecRepo.save(record);
         }
         return null;
@@ -56,10 +58,8 @@ public class FinancialRecService {
         LocalDate nextPayrollDate = calculateNextPayrollDate(today);
         long daysUntilNextPayroll = ChronoUnit.DAYS.between(today, nextPayrollDate);
 
-        
-        // Fetch default values if needed
         Expenses_Savings defaultValues = expenses_SavingsRepo.findTopByOrderByIdDesc()
-            .orElseThrow(() -> new RuntimeException("No expenses_savings record found"));
+            .orElseThrow();
 
         BigDecimal expenses = financialRec.getExpenses() != null ?
             financialRec.getExpenses() :
@@ -80,19 +80,32 @@ public class FinancialRecService {
 
         return financialRecRepo.save(financialRec);
     }
-    
-    private LocalDate calculateNextPayrollDate(LocalDate today) {
-        LocalDate nextPayrollDate = today.withDayOfMonth(15);
-        if (today.getDayOfMonth() > 15) {
-            nextPayrollDate = today.withDayOfMonth(today.lengthOfMonth());
-        }
 
+    private LocalDate calculateNextPayrollDate(LocalDate today) {
+        LocalDate nextPayrollDate;
+        LocalDate lastDayOfMonth = today.withDayOfMonth(today.lengthOfMonth());
+        LocalDate fifteenthOfMonth = today.withDayOfMonth(15);
+    
+        if (today.getDayOfMonth() <= 15) {
+            if (hasReceivedPayrollFor15th(today)) {
+                nextPayrollDate = lastDayOfMonth;
+            } else {
+                nextPayrollDate = fifteenthOfMonth;
+            }
+        } else {
+            nextPayrollDate = lastDayOfMonth;
+        }
+    
         if (nextPayrollDate.getDayOfWeek() == DayOfWeek.SATURDAY) {
             nextPayrollDate = nextPayrollDate.minusDays(1);
         } else if (nextPayrollDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
             nextPayrollDate = nextPayrollDate.minusDays(2);
         }
-
+    
         return nextPayrollDate;
+    }
+    
+    private boolean hasReceivedPayrollFor15th(LocalDate today) {
+        return today.isBefore(today.withDayOfMonth(15));
     }
 }
