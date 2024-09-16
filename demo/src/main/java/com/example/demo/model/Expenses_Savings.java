@@ -37,5 +37,4 @@ public class Expenses_Savings {
 
     @Column(name = "total_savings")
     private BigDecimal totalSavings;
-
 }

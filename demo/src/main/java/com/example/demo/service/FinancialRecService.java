@@ -47,7 +47,8 @@ public class FinancialRecService {
             record.setSavings(updatedRecord.getSavings() != null ? updatedRecord.getSavings() : record.getSavings());
             record.setExtra(updatedRecord.getExtra() != null ? updatedRecord.getExtra() : record.getExtra());
             record.setPeriod(updatedRecord.getPeriod() != null ? updatedRecord.getPeriod() : record.getPeriod());
-            
+            record.setMonthlyPayments(updatedRecord.getMonthlyPayments() != null ? updatedRecord.getMonthlyPayments() : record.getMonthlyPayments());
+
             return financialRecRepo.save(record);
         }
         return null;
@@ -61,20 +62,25 @@ public class FinancialRecService {
         Expenses_Savings defaultValues = expenses_SavingsRepo.findTopByOrderByIdDesc()
             .orElseThrow();
 
-        BigDecimal expenses = financialRec.getExpenses() != null ?
-            financialRec.getExpenses() :
-            BigDecimal.valueOf(daysUntilNextPayroll * 150).add(BigDecimal.valueOf(500));
-        
         BigDecimal savings = financialRec.getSavings() != null ?
             financialRec.getSavings() :
             defaultValues.getSavings();
 
+        BigDecimal monthlyPayments = financialRec.getMonthlyPayments() != null ?
+            financialRec.getMonthlyPayments() :
+            defaultValues.getMonthlyPayments();
+
+        BigDecimal expenses = financialRec.getExpenses() != null ?
+            financialRec.getExpenses().add(monthlyPayments) :
+            BigDecimal.valueOf(daysUntilNextPayroll * 150).add(BigDecimal.valueOf(500)).add(monthlyPayments);
+        
         BigDecimal extra = financialRec.getCash().subtract(expenses).subtract(savings);
 
         financialRec.setDate(Date.valueOf(today));
         financialRec.setNextPayrollDate(Date.valueOf(nextPayrollDate));
         financialRec.setDaysUntilNextPayroll((int) daysUntilNextPayroll);
         financialRec.setExpenses(expenses);
+        financialRec.setMonthlyPayments(monthlyPayments);
         financialRec.setSavings(savings);
         financialRec.setExtra(extra);
 
@@ -86,20 +92,22 @@ public class FinancialRecService {
         LocalDate lastDayOfMonth = today.withDayOfMonth(today.lengthOfMonth());
         LocalDate fifteenthOfMonth = today.withDayOfMonth(15);
     
-        if (today.getDayOfMonth() <= 15) {
+        if (today.getDayOfMonth() < 15) {
             if (hasReceivedPayrollFor15th(today)) {
                 nextPayrollDate = lastDayOfMonth;
             } else {
                 nextPayrollDate = fifteenthOfMonth;
             }
-        } else {
+        } else if (today.getDayOfMonth() > 15) {
             if (hasReceivedPayrollForTheLastDay(today)) {
                 nextPayrollDate = fifteenthOfMonth;
             } else {
             nextPayrollDate = lastDayOfMonth;
             }
+        } else if (today.getDayOfMonth() > 15) {
+            nextPayrollDate = today.plusMonths(1).withDayOfMonth(15);
         }
-    
+
         if (nextPayrollDate.getDayOfWeek() == DayOfWeek.SATURDAY) {
             nextPayrollDate = nextPayrollDate.minusDays(1);
         } else if (nextPayrollDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
