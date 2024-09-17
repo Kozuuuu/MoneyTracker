@@ -4,6 +4,7 @@ CREATE TABLE financial_records (
     cash DECIMAL(10, 2),
     date DATE,
     expenses DECIMAL(10, 2),
+    monthly_payments DECIMAL(10, 2),
     savings DECIMAL(10, 2),
     extra DECIMAL(10, 2),
     days_until_next_payroll INT,
@@ -11,11 +12,12 @@ CREATE TABLE financial_records (
     period VARCHAR(255),
     INDEX (date)
 );
-INSERT INTO financial_records (cash, date, expenses, savings, extra, period)
+INSERT INTO financial_records (cash, date, monthly_payments, expenses, savings, extra, period)
 VALUES 
-    (9228.10, '2024-07-31', 9228.10, 0, 0, 'July 15-31, 2024'),
-    (17130.95, '2024-08-15', 17130.95, 0, 0, 'August 1-15, 2024'),
-    (13407.44, '2024-08-30', 13407.44, 0, 0, 'August 16-30, 2024');
+    (9228.10, '2024-07-31', 0, 9228.10, 0, 0, 'July 15-31, 2024'),
+    (17130.95, '2024-08-15', 0, 17130.95, 0, 0, 'August 1-15, 2024'),
+    (13407.44, '2024-08-30', 0, 13407.44, 0, 0, 'August 16-30, 2024'),
+    (15000.00, '2024-09-13', 5000.00, 7500.00, 5000.00, 2500, 'September 1-15, 2024');
 
 
 
