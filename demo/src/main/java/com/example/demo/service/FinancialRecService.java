@@ -91,37 +91,45 @@ public class FinancialRecService {
         LocalDate nextPayrollDate;
         LocalDate lastDayOfMonth = today.withDayOfMonth(today.lengthOfMonth());
         LocalDate fifteenthOfMonth = today.withDayOfMonth(15);
-    
-        if (today.getDayOfMonth() < 15) {
+
+        if (today.getDayOfMonth() <= 20 && today.getDayOfMonth() >= 10) {
             if (hasReceivedPayrollFor15th(today)) {
                 nextPayrollDate = lastDayOfMonth;
             } else {
                 nextPayrollDate = fifteenthOfMonth;
             }
-        } else if (today.getDayOfMonth() > 15) {
+        } else if (today.getDayOfMonth() >= 21 && today.getDayOfMonth() <= 31 ) {
             if (hasReceivedPayrollForTheLastDay(today)) {
-                nextPayrollDate = fifteenthOfMonth;
+                nextPayrollDate = today.plusMonths(1).withDayOfMonth(15);
             } else {
-            nextPayrollDate = lastDayOfMonth;
+                nextPayrollDate = lastDayOfMonth;
             }
-        } else if (today.getDayOfMonth() > 15) {
-            nextPayrollDate = today.plusMonths(1).withDayOfMonth(15);
+        } else if (today.getDayOfMonth() >= 1 && today.getDayOfMonth() <= 9){
+            nextPayrollDate = today.withDayOfMonth(15);
+        } else {
+            return today;
         }
 
+        // Adjust for weekends
         if (nextPayrollDate.getDayOfWeek() == DayOfWeek.SATURDAY) {
             nextPayrollDate = nextPayrollDate.minusDays(1);
         } else if (nextPayrollDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
             nextPayrollDate = nextPayrollDate.minusDays(2);
         }
-    
         return nextPayrollDate;
     }
-    
+
     private boolean hasReceivedPayrollFor15th(LocalDate today) {
-        return today.isBefore(today.withDayOfMonth(15)) || today.isEqual(today.withDayOfMonth(15));
+        LocalDate twentiethOfMonth = today.withDayOfMonth(20);
+        LocalDate tenthOfMonth = today.withDayOfMonth(10);
+
+        return today.isBefore(twentiethOfMonth) && today.isAfter(tenthOfMonth) || today.isEqual(twentiethOfMonth) && today.isAfter(tenthOfMonth);
     }
+
     private boolean hasReceivedPayrollForTheLastDay(LocalDate today) {
         LocalDate lastDayOfMonth = today.withDayOfMonth(today.lengthOfMonth());
-        return today.isBefore(lastDayOfMonth) && today.isAfter(today.withDayOfMonth(15)) || today.isEqual(lastDayOfMonth);
+        LocalDate twentiethOfMonth = today.withDayOfMonth(20);
+
+        return today.isBefore(lastDayOfMonth) && today.isAfter(twentiethOfMonth) || today.isEqual(lastDayOfMonth) && today.isAfter(twentiethOfMonth);
     }
 }

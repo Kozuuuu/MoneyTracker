@@ -35,7 +35,6 @@ public class FinancialRec {
     @Column(name ="savings")
     private BigDecimal savings;
 
-
     @Column(name ="monthly_payments")
     private BigDecimal monthlyPayments;
 
