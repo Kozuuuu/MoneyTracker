@@ -165,28 +165,47 @@ header button:hover {
 .night-mode th {
   background-color: #555;
 }
-.night-mode {
-  background-color: #1c1c1c;
-  color: #f1f1f1;
+
+.header {
+  width: 80%;
+  align-self: center;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  margin: auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.night-mode .q-header {
-  background-color: #111;
-  color: #f1f1f1;
+.q-table {
+  width: 80%;
+  align-self: center;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  margin: auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.night-mode button#nightModeToggle {
-  background-color: #555;
-  color: #ddd;
-  border: 1px solid #666;
+.q-table th {
+  background-color: #666; // Change header background color
+  color: white; // Change header text color
+  font-weight: bold;
+  font-size: large;
 }
 
-.night-mode button#nightModeToggle:hover {
-  background-color: #666;
+.q-table td {
+  padding: 12px; // Increase padding for cells
 }
 
-/* Optional styling for other components in night mode */
-.night-mode .q-card {
-  background-color: #333;
-  color: #f1f1f1;
+.q-table tr:hover {
+  background-color: #f0f8ff; // Highlight row on hover
+}
+
+.q-spinner {
+  position: absolute; // Center spinner
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
