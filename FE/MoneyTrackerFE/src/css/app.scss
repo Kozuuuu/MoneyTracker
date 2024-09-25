@@ -1,0 +1,192 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f5f5f5;
+}
+header {
+  background: #007bff;
+  color: white;
+  padding: 1rem 0.2rem;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 90%;
+}
+.container {
+  width: 100%;
+  max-width: 1000px;
+  max-height: min-content;
+  margin: auto;
+  margin-top: 3%;
+  padding: 1rem;
+  align-self: center;
+}
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 0%;
+}
+.card h2 {
+  font-weight: bold;
+  font-size: 2.6rem;
+  text-align: left;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.summary h5 {
+  font-size: 1.2rem; /* Set font size */
+  font-weight: bold; /* Make text bold */
+  color: #333; /* Change text color */
+  margin: 0; /* Remove default margin */
+  padding: 0.5rem 0; /* Add some vertical padding */
+}
+
+.summary {
+  display: flex;
+  justify-content: space-between;
+}
+.summary div {
+  flex: 1;
+  margin-right: 1rem;
+}
+.summary div:last-child {
+  margin-right: 0;
+}
+.form-group {
+  margin-bottom: 1rem;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+.btn {
+  background-color: #007bff;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.btn:hover {
+  background-color: #0056b3;
+}
+.chart-container {
+  margin-top: 1rem;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+table,
+th,
+td {
+  border: 1px solid #ddd;
+}
+th,
+td {
+  padding: 0.5rem;
+  text-align: left;
+}
+th {
+  background-color: #f4f4f4;
+}
+
+/* Night Mode Styles */
+.night-mode {
+  background-color: #1c1c1c;
+  color: #f1f1f1;
+}
+
+.night-mode .card {
+  background-color: #333;
+  color: #f1f1f1;
+}
+
+.night-mode header {
+  background-color: #111;
+  color: #f1f1f1;
+}
+
+.night-mode .btn:hover {
+  background-color: #666;
+}
+.night-mode .btn {
+  background-color: #555;
+}
+
+/* .night-mode input {
+      background: #555;
+      border-color: #666;
+    } */
+
+.night-mode .night-mode-toggle {
+  background-color: #555;
+  color: #ddd;
+  border: 1px solid #666;
+}
+.night-mode .night-mode-toggle:hover {
+  background-color: #666;
+}
+
+.night-mode label {
+  color: #ddd;
+}
+
+header button {
+  margin-left: auto;
+  padding: 0.5rem 1rem;
+  background-color: white;
+  color: #111;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.5rem; /* Adjust icon size */
+}
+
+header button:hover {
+  background-color: whitesmoke;
+}
+
+.night-mode th {
+  background-color: #555;
+}
+.night-mode {
+  background-color: #1c1c1c;
+  color: #f1f1f1;
+}
+
+.night-mode .q-header {
+  background-color: #111;
+  color: #f1f1f1;
+}
+
+.night-mode button#nightModeToggle {
+  background-color: #555;
+  color: #ddd;
+  border: 1px solid #666;
+}
+
+.night-mode button#nightModeToggle:hover {
+  background-color: #666;
+}
+
+/* Optional styling for other components in night mode */
+.night-mode .q-card {
+  background-color: #333;
+  color: #f1f1f1;
+}
