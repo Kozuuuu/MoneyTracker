@@ -25,12 +25,19 @@
           </div>
         </div>
       </div>
-      <div class="button-container">
-        <q-btn
-          @click="goToCalculator"
-          label="Go to Calculator"
-          color="primary"
-        />
+      <div>
+        <div class="button-container">
+          <q-btn
+            @click="goToCalculator"
+            label="Go to Calculator"
+            color="primary"
+          />
+          <q-btn
+            @click="goToRecords"
+            label="Go to Financial Records"
+            color="primary"
+          />
+        </div>
       </div>
     </div>
   </body>
@@ -40,7 +47,10 @@
 export default {
   methods: {
     goToCalculator() {
-      this.$router.push({ path: "/calculator" }); // Adjust the path as needed
+      this.$router.push({ path: "/calculator" });
+    },
+    goToRecords() {
+      this.$router.push({ path: "/history" });
     },
   },
 };
@@ -50,5 +60,7 @@ export default {
 .button-container {
   text-align: left;
   margin-top: 25px;
+  display: flex;
+  justify-content: space-evenly;
 }
 </style>

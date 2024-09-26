@@ -38,23 +38,26 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router"; // Import useRouter for navigation
 import SideBar from "../components/SideBar.vue";
 
 // Sidebar open/close state
-const leftDrawerOpen = ref(false);
+const leftDrawerOpen = ref(false); // Ensure the sidebar is closed by default
+const router = useRouter();
 
 // Function to toggle the sidebar
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 
-// Use the router
-const router = useRouter();
-
 // Function to navigate to the dashboard
 function goToDashBoard() {
   router.push({ path: "/" }); // Adjust the path as needed
 }
+
+// Optional: Reset sidebar state on mounted
+onMounted(() => {
+  leftDrawerOpen.value = false; // Ensure it starts closed
+});
 </script>
