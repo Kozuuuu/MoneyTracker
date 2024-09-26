@@ -15,7 +15,7 @@
       class="q-py-sm table"
       no-data-label="Please Select History"
     >
-      <!-- <div class="table-top-props">
+      <div class="table-top-props">
         <h4 class="text-h6">Financial History</h4>
         <q-input
           filled
@@ -23,8 +23,8 @@
           label="Search"
           class="q-mr-sm"
           style="width: 250px"
-        /> -->
-      <!-- </div> -->
+        />
+      </div>
       <template v-slot:loading>
         <q-inner-loading showing color="primary" :label="`Gathering Data...`"
       /></template>
@@ -96,14 +96,6 @@
         </q-td>
       </template>
     </q-table>
-
-    <q-alert
-      v-if="!loading && filteredRecords.length === 0"
-      type="info"
-      class="q-mt-md alert"
-    >
-      <strong>No records found.</strong>
-    </q-alert>
   </q-page>
 </template>
 
@@ -131,28 +123,28 @@ const columns = [
     name: "cash",
     label: "Cash",
     field: "cash",
-    align: "right",
+    align: "left",
     sortable: true,
   },
   {
     name: "savings",
     label: "Savings",
     field: "savings",
-    align: "right",
+    align: "left",
     sortable: true,
   },
   {
     name: "expenses",
     label: "Expenses",
     field: "expenses",
-    align: "right",
+    align: "left",
     sortable: true,
   },
   {
     name: "extra",
     label: "Extra",
     field: "extra",
-    align: "right",
+    align: "left",
     sortable: true,
   },
 ];
@@ -178,26 +170,3 @@ onMounted(() => {
     });
 });
 </script>
-
-<style scoped>
-.table-top-props {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.table {
-  border: 1px solid #e0e0e0; /* Table border */
-  border-radius: 4px;
-}
-
-.table .q-tr:hover {
-  background-color: #f0f0f0; /* Row hover effect */
-}
-
-.alert {
-  background-color: #e3f2fd; /* Light blue for alert */
-  border: 1px solid #bbdefb; /* Light blue border */
-}
-</style>
