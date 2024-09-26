@@ -11,7 +11,9 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title> Money Tracker </q-toolbar-title>
+        <q-toolbar-title @click="goToDashBoard">
+          Money Tracker
+        </q-toolbar-title>
 
         <div>
           <button id="nightModeToggle">
@@ -37,6 +39,7 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router"; // Import useRouter for navigation
 import SideBar from "../components/SideBar.vue";
 
 // Sidebar open/close state
@@ -45,5 +48,13 @@ const leftDrawerOpen = ref(false);
 // Function to toggle the sidebar
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
+}
+
+// Use the router
+const router = useRouter();
+
+// Function to navigate to the dashboard
+function goToDashBoard() {
+  router.push({ path: "/" }); // Adjust the path as needed
 }
 </script>

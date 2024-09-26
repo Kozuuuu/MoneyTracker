@@ -25,6 +25,30 @@
           </div>
         </div>
       </div>
+      <div class="button-container">
+        <q-btn
+          @click="goToCalculator"
+          label="Go to Calculator"
+          color="primary"
+        />
+      </div>
     </div>
   </body>
 </template>
+
+<script>
+export default {
+  methods: {
+    goToCalculator() {
+      this.$router.push({ path: "/calculator" }); // Adjust the path as needed
+    },
+  },
+};
+</script>
+
+<style scoped>
+.button-container {
+  text-align: left;
+  margin-top: 25px;
+}
+</style>

@@ -4,7 +4,7 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [
       {
-        path: "dashboard",
+        path: "",
         component: () => import("pages/MainDashboard.vue"),
       },
       {
@@ -29,5 +29,4 @@ const routes = [
     component: () => import("pages/ErrorNotFound.vue"),
   },
 ];
-
 export default routes;
