@@ -11,6 +11,14 @@ const routes = [
         path: "history",
         component: () => import("pages/FinancialHistory.vue"),
       },
+      {
+        path: "calculator",
+        component: () => import("pages/BudgetCalculator.vue"),
+      },
+      {
+        path: "add",
+        component: () => import("pages/AddRecord.vue"),
+      },
     ],
   },
 

@@ -7,12 +7,11 @@ body {
 header {
   background: primary;
   color: white;
-  padding: 1rem 0.2rem;
+  padding: 1rem 0.1rem;
   text-align: left;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 90%;
 }
 
 .container {
@@ -90,7 +89,7 @@ header {
 }
 
 .btn {
-  background-color: #007bff;
+  background-color: $primary;
   color: white;
   padding: 0.5rem 1rem;
   border: none;
@@ -100,7 +99,7 @@ header {
 }
 
 .btn:hover {
-  background-color: #0056b3;
+  background-color: $secondary;
 }
 
 .chart-container {
@@ -170,7 +169,7 @@ header button:hover {
 }
 
 .q-table th {
-  background-color: #006400; // Change header background color
+  background-color: $primary; // Change header background color
   color: white; // Change header text color
   font-weight: bold;
   font-size: large;

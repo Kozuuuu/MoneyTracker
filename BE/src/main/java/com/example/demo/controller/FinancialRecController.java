@@ -24,7 +24,7 @@ public class FinancialRecController {
     @Autowired
     private FinancialRecService financialRecService;
 
-     @CrossOrigin(origins = "http://localhost:9000")
+    @CrossOrigin(origins = "http://localhost:9000")
     @GetMapping
     public List<FinancialRec> getAllRecords() {
         return financialRecService.getAllRecords();
